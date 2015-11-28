@@ -6,36 +6,12 @@ import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.Range;
 
 public class TankDriveTapeTest extends OpMode{
-    /*
-     * Note: the configuration of the servos is such that
-     * as the climberServo servo approaches 0, the climberServo position moves up (away from the floor).
-     * Also, as the claw servo approaches 0, the claw opens up (drops the game element).
-     */
-    // TETRIX VALUES.
-    final static double ARM_MIN_RANGE  = 0.20;
-    final static double ARM_MAX_RANGE  = 0.90;
-    final static double CLAW_MIN_RANGE  = 0.20;
-    final static double CLAW_MAX_RANGE  = 0.7;
-
-    // position of the climberServo servo.
-    double armPosition;
-
-    // amount to change the climberServo servo position.
-    double armDelta = 0.1;
-
-    // position of the claw servo
-    double clawPosition;
-
-    // amount to change the claw servo position by
-    double clawDelta = 0.1;
 
     DcMotor frontLeftDrive;
     DcMotor frontRightDrive;
     DcMotor backLeftDrive;
     DcMotor backRightDrive;
-    //DcMotor middleHookWheel;
     Servo climber;
-    DcMotor angleAdjust;
     DcMotor tape;
     int i = 0;
 
@@ -54,23 +30,6 @@ public class TankDriveTapeTest extends OpMode{
     @Override
     public void init() {
 
-
-		/*
-		 * Use the hardwareMap to get the dc motors and servos by name. Note
-		 * that the names of the devices must match the names used when you
-		 * configured your robot and created the configuration file.
-		 */
-
-		/*
-		 * For the demo Tetrix K9 bot we assume the following,
-		 *   There are two motors "motor_1" and "motor_2"
-		 *   "motor_1" is on the right side of the bot.
-		 *   "motor_2" is on the left side of the bot and reversed.
-		 *
-		 * We also assume that there are two servos "servo_1" and "servo_6"
-		 *    "servo_1" controls the climberServo joint of the manipulator.
-		 *    "servo_6" controls the claw joint of the manipulator.
-		 */
         backRightDrive = hardwareMap.dcMotor.get("backRightDrive");
         backLeftDrive = hardwareMap.dcMotor.get("backLeftDrive");
         backLeftDrive.setDirection(DcMotor.Direction.REVERSE);
@@ -78,16 +37,7 @@ public class TankDriveTapeTest extends OpMode{
         frontLeftDrive = hardwareMap.dcMotor.get("frontLeftDrive");
         frontLeftDrive.setDirection(DcMotor.Direction.REVERSE);
         climber = hardwareMap.servo.get("climberServo");
-        //middleHookWheel = hardwareMap.dcMotor.get("middle");
-        //motorFrontLeft.setDirection(DcMotor.Direction.REVERSE);*
-		//angleAdjust = hardwareMap.dcMotor.get("angle");
         tape = hardwareMap.dcMotor.get("tape");
-		/*climberServo = hardwareMap.servo.get("servo_1");
-		claw = hardwareMap.servo.get("servo_6");*/
-
-        // assign the starting position of the wrist and claw
-        armPosition = 0.2;
-        clawPosition = 0.2;
 
     }
 
@@ -131,20 +81,12 @@ public class TankDriveTapeTest extends OpMode{
             climber.setPosition(Servo.MAX_POSITION);
         }
 
-        if (gamepad1.right_bumper) {
-            angleAdjust.setPower(.1);
-        }
-
-        if (gamepad1.left_bumper) {
-            angleAdjust.setPower(-.1);
-        }
-
         if (gamepad1.right_trigger >= .3) {
-            tape.setPower(.95);
+            tape.setPower(.75);
         }
 
         if (gamepad1.left_trigger >= .3) {
-            tape.setPower(-.95);
+            tape.setPower(-.5);
         }
 
 
