@@ -62,6 +62,11 @@ public class FtcOpModeRegister implements OpModeRegister {
     manager.register("K9Line", K9Line.class);
     manager.register ("PushBotAuto", PushBotAuto.class);
     manager.register ("PushBotManual", PushBotManual.class);
+    manager.register("TankDriveClimber", TankDriveClimber.class);
+    manager.register("TankDriveClimberArm", TankDriveClimberArm.class);
+    manager.register("TankDriveAutoRed", TankDriveClimberLinearAutoRed.class);
+    manager.register("TankDriveAutoBlue", TankDriveClimberLinearAutoBlue.class);
+    manager.register("TankDriveTapeTest", TankDriveTapeTest.class);
 
 
 
@@ -70,9 +75,10 @@ public class FtcOpModeRegister implements OpModeRegister {
      */
     manager.register("MR Gyro Test", MRGyroTest.class);
 
-    //manager.register("AdafruitRGBExample", AdafruitRGBExample.class);
-    //manager.register("ColorSensorDriver", ColorSensorDriver.class);
 
+//<<<<<<< HEAD
+    
+//=======
     //manager.register("IrSeekerOp", IrSeekerOp.class);
     //manager.register("CompassCalibration", CompassCalibration.class);
     //manager.register("I2cAddressChangeExample", LinearI2cAddressChange.class);
@@ -96,5 +102,6 @@ public class FtcOpModeRegister implements OpModeRegister {
     //manager.register("PushBotDriveTouch", PushBotDriveTouch.java);
     //manager.register("PushBotIrSeek", PushBotIrSeek.java);
     //manager.register("PushBotSquare", PushBotSquare.java);
+    //>>>>>>> 5ea8a8bc50f95c6436412df0f49f8ffa44d267fc
   }
 }
