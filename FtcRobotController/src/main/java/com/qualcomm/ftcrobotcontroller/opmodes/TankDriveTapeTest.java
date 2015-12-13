@@ -13,6 +13,7 @@ public class TankDriveTapeTest extends OpMode{
     DcMotor backRightDrive;
     Servo climber;
     DcMotor tape;
+    DcMotor adjust;
     int i = 0;
 
     /**
@@ -38,6 +39,7 @@ public class TankDriveTapeTest extends OpMode{
         frontLeftDrive.setDirection(DcMotor.Direction.REVERSE);
         climber = hardwareMap.servo.get("climberServo");
         tape = hardwareMap.dcMotor.get("tape");
+        adjust = hardwareMap.dcMotor.get("adjust");
 
     }
 
@@ -84,9 +86,23 @@ public class TankDriveTapeTest extends OpMode{
         if (gamepad1.right_trigger >= .3) {
             tape.setPower(.75);
         }
-
-        if (gamepad1.left_trigger >= .3) {
+        else if (gamepad1.left_trigger >= .3) {
             tape.setPower(-.5);
+        }
+        else {
+            tape.setPower(0);
+        }
+
+        if (gamepad1.right_bumper) {
+            adjust.setPower(-.25);
+        }
+
+        else if (gamepad1.left_bumper) {
+            adjust.setPower(.25);
+        }
+
+        else {
+            adjust.setPower(0);
         }
 
 
