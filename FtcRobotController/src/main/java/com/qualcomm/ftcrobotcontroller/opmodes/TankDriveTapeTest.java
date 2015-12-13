@@ -84,21 +84,21 @@ public class TankDriveTapeTest extends OpMode{
         }
 
         if (gamepad1.right_trigger >= .3) {
-            tape.setPower(.75);
+            tape.setPower(.5);
         }
         else if (gamepad1.left_trigger >= .3) {
-            tape.setPower(-.5);
+            tape.setPower(-.9);
         }
         else {
             tape.setPower(0);
         }
 
         if (gamepad1.right_bumper) {
-            adjust.setPower(-.25);
+            adjust.setPower(.12);
         }
 
         else if (gamepad1.left_bumper) {
-            adjust.setPower(.25);
+            adjust.setPower(-.12);
         }
 
         else {
