@@ -23,7 +23,7 @@ public class TankDriveClimberLinearAutoBlue extends LinearOpMode implements Sens
     DcMotor tape;
     DcMotor adjust;
     Servo deposit;
-    Servo climber;
+    //Servo climber;
     SensorManager mSensorManager;
     Sensor gyroscope;
     private static final float NS2S = 1.0f/1000000000.0f;
@@ -56,6 +56,19 @@ public class TankDriveClimberLinearAutoBlue extends LinearOpMode implements Sens
         backRightDrive.setPower(-val);
     }
 
+    public void stopDrive(){
+        frontLeftDrive.setPower(0);
+        frontRightDrive.setPower(0);
+        backLeftDrive.setPower(0);
+        backRightDrive.setPower(0);
+    }
+
+    public void fullStop(){
+        stopDrive();
+        tape.setPower(0);
+        adjust.setPower(0);
+    }
+
     @Override
     public void runOpMode() throws InterruptedException {
         backRightDrive = hardwareMap.dcMotor.get("backRightDrive");
@@ -64,20 +77,30 @@ public class TankDriveClimberLinearAutoBlue extends LinearOpMode implements Sens
         frontRightDrive = hardwareMap.dcMotor.get("frontRightDrive");
         frontLeftDrive = hardwareMap.dcMotor.get("frontLeftDrive");
         frontLeftDrive.setDirection(DcMotor.Direction.REVERSE);
-        climber = hardwareMap.servo.get("climber");
+        //climber = hardwareMap.servo.get("climber");
         tape = hardwareMap.dcMotor.get("tape");
         adjust = hardwareMap.dcMotor.get("adjust");
         deposit = hardwareMap.servo.get("deposit");
-        climber.setPosition(Servo.MIN_POSITION);
+        //climber.setPosition(Servo.MIN_POSITION);
         mSensorManager = (SensorManager) hardwareMap.appContext.getSystemService(Context.SENSOR_SERVICE);
         gyroscope = mSensorManager.getDefaultSensor(Sensor.TYPE_GYROSCOPE);
         waitForStart();
         forward(.60);
-        sleep(1000);
-        turnLeft(.60);
-        sleep(400);
-        forward(.60);
-        sleep(1000);
+        sleep(800);
+        turnRight(.60);
+        sleep(2000);
+        forward(1);
+        sleep(3000);
+        stopDrive();
+
+        //adjust.setPower(.4);
+        //sleep(200);
+
+//        tape.setPower(-.8);
+//        sleep(500);
+//        tape.setPower(0);
+
+
 
     }
 
