@@ -5,7 +5,7 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.Servo;
 
 /**
- * Created by Darsh on 11/22/15.
+ * Created by ayylmao on 11/22/15.
  */
 public class TankDriveClimberLinearAutoRed extends LinearOpMode {
 
@@ -13,6 +13,9 @@ public class TankDriveClimberLinearAutoRed extends LinearOpMode {
     DcMotor backRightDrive;
     DcMotor frontLeftDrive;
     DcMotor frontRightDrive;
+    DcMotor tape;
+    DcMotor adjust;
+    Servo deposit;
     Servo climber;
     public void forward(double val) {
         frontLeftDrive.setPower(val);
@@ -40,13 +43,16 @@ public class TankDriveClimberLinearAutoRed extends LinearOpMode {
     }
     @Override
     public void runOpMode() throws InterruptedException {
-        backLeftDrive = hardwareMap.dcMotor.get("backLeftDrive");
         backRightDrive = hardwareMap.dcMotor.get("backRightDrive");
+        backLeftDrive = hardwareMap.dcMotor.get("backLeftDrive");
         backLeftDrive.setDirection(DcMotor.Direction.REVERSE);
-        frontLeftDrive = hardwareMap.dcMotor.get("frontLeftDrive");
         frontRightDrive = hardwareMap.dcMotor.get("frontRightDrive");
+        frontLeftDrive = hardwareMap.dcMotor.get("frontLeftDrive");
         frontLeftDrive.setDirection(DcMotor.Direction.REVERSE);
-        climber = hardwareMap.servo.get("climberServo");
+        climber = hardwareMap.servo.get("climber");
+        tape = hardwareMap.dcMotor.get("tape");
+        adjust = hardwareMap.dcMotor.get("adjust");
+        deposit = hardwareMap.servo.get("deposit");
         climber.setPosition(Servo.MIN_POSITION);
         waitForStart();
         forward(.60);
@@ -55,7 +61,5 @@ public class TankDriveClimberLinearAutoRed extends LinearOpMode {
         sleep(400);
         forward(.60);
         sleep(1000);
-
     }
-
 }
