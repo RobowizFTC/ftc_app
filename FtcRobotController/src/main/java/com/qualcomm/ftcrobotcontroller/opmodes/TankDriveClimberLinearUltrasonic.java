@@ -51,6 +51,17 @@ public class TankDriveClimberLinearUltrasonic extends LinearOpMode {
         backLeftDrive.setPower(val);
         backRightDrive.setPower(-val);
     }
+
+    public boolean seeRamp(UltrasonicSensor ultraLeft, UltrasonicSensor ulraRight){
+        telemetry.addData("ultraL", "Left: " + ultraLeft.getUltrasonicLevel());
+        telemetry.addData("ultraR", "Right: " + ultraRight.getUltrasonicLevel());
+
+        double diff = Math.abs(ultraLeft.getUltrasonicLevel() - ultraRight.getUltrasonicLevel());
+        if( diff <= 5)
+            return true;
+        return false;
+    }
+
     @Override
     public void runOpMode() throws InterruptedException {
         backRightDrive = hardwareMap.dcMotor.get("backRightDrive");
@@ -66,11 +77,16 @@ public class TankDriveClimberLinearUltrasonic extends LinearOpMode {
         ultraLeft = hardwareMap.ultrasonicSensor.get("ultraLeft");
         ultraRight = hardwareMap.ultrasonicSensor.get("ultraRight");
         waitForStart();
-        while(true) {
-            sleep(500);
-            telemetry.addData("ultraL", "Left: " + ultraLeft.getUltrasonicLevel());
-            telemetry.addData("ultraR", "Right: " + ultraRight.getUltrasonicLevel());
+
+        boolean seen = false;
+
+        while(!seen) {
+            seen = seeramp(ultraLeft, ultraRight);
         }
+
+
+
+
 
 //        forward(.60);
 //        sleep(1000);

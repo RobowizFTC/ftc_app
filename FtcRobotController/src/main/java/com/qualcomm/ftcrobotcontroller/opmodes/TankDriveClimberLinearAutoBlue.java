@@ -84,6 +84,7 @@ public class TankDriveClimberLinearAutoBlue extends LinearOpMode implements Sens
         //climber.setPosition(Servo.MIN_POSITION);
         mSensorManager = (SensorManager) hardwareMap.appContext.getSystemService(Context.SENSOR_SERVICE);
         gyroscope = mSensorManager.getDefaultSensor(Sensor.TYPE_GYROSCOPE);
+
         waitForStart();
         forward(.60);
         sleep(800);
