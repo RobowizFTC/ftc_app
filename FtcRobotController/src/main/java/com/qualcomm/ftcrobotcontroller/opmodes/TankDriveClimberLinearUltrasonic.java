@@ -22,7 +22,7 @@ public class TankDriveClimberLinearUltrasonic extends LinearOpMode {
     DcMotor frontLeftDrive;
     DcMotor frontRightDrive;
     DcMotor tape;
-    DcMotor adjust;
+    Servo adjust;
     Servo deposit;
     LegacyModule legacyModule;
     UltrasonicSensor ultraLeft;
@@ -52,7 +52,22 @@ public class TankDriveClimberLinearUltrasonic extends LinearOpMode {
         backRightDrive.setPower(-val);
     }
 
-    public boolean seeRamp(UltrasonicSensor ultraLeft, UltrasonicSensor ulraRight){
+
+    public void stopDrive(){
+        frontLeftDrive.setPower(0);
+        frontRightDrive.setPower(0);
+        backLeftDrive.setPower(0);
+        backRightDrive.setPower(0);
+    }
+
+    public void fullStop(){
+        stopDrive();
+        tape.setPower(0);
+        //adjust.setPower(0);
+    }
+
+
+    public boolean seeRamp(UltrasonicSensor ultraLeft, UltrasonicSensor ultraRight){
         telemetry.addData("ultraL", "Left: " + ultraLeft.getUltrasonicLevel());
         telemetry.addData("ultraR", "Right: " + ultraRight.getUltrasonicLevel());
 
@@ -71,7 +86,7 @@ public class TankDriveClimberLinearUltrasonic extends LinearOpMode {
         frontLeftDrive = hardwareMap.dcMotor.get("frontLeftDrive");
         frontLeftDrive.setDirection(DcMotor.Direction.REVERSE);
         tape = hardwareMap.dcMotor.get("tape");
-        adjust = hardwareMap.dcMotor.get("adjust");
+        adjust = hardwareMap.servo.get("adjust");
         deposit = hardwareMap.servo.get("deposit");
         legacyModule = hardwareMap.legacyModule.get("legacy");
         ultraLeft = hardwareMap.ultrasonicSensor.get("ultraLeft");
@@ -79,20 +94,15 @@ public class TankDriveClimberLinearUltrasonic extends LinearOpMode {
         waitForStart();
 
         boolean seen = false;
+        forward(.60);
+        sleep(1000);
 
+        turnLeft(.60);
         while(!seen) {
-            seen = seeramp(ultraLeft, ultraRight);
+            seen = seeRamp(ultraLeft, ultraRight);
         }
+        stopDrive();
 
 
-
-
-
-//        forward(.60);
-//        sleep(1000);
-//        turnLeft(.60);
-//        sleep(400);
-//        forward(.60);
-//        sleep(1000);
     }
 }

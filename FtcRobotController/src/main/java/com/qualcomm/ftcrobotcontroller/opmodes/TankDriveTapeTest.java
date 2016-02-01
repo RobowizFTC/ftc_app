@@ -13,7 +13,7 @@ public class TankDriveTapeTest extends OpMode{
     DcMotor backRightDrive;
 //    Servo climber;
     DcMotor tape;
-    DcMotor adjust;
+    Servo adjust;
     Servo deposit;
     boolean reversed = false;
     int i = 0;
@@ -42,7 +42,7 @@ public class TankDriveTapeTest extends OpMode{
         frontLeftDrive.setDirection(DcMotor.Direction.REVERSE);
 //        climber = hardwareMap.servo.get("climber");
         tape = hardwareMap.dcMotor.get("tape");
-        adjust = hardwareMap.dcMotor.get("adjust");
+        adjust = hardwareMap.servo.get("adjust");
         deposit = hardwareMap.servo.get("deposit");
 
 
@@ -100,33 +100,42 @@ public class TankDriveTapeTest extends OpMode{
         if (gamepad1.right_trigger >= .3) {
             tape.setPower(.5);
         }
+
         else if (gamepad1.left_trigger >= .3) {
             tape.setPower(-.9);
         }
+
         else {
             tape.setPower(0);
         }
 
         if (gamepad1.right_bumper) {
-            adjust.setPower(.12);
+            if (adjust.getPosition() < 0.99) {
+                adjust.setPosition(adjust.getPosition() + 0.01);
+            }
         }
 
         else if (gamepad1.left_bumper) {
-            adjust.setPower(-.12);
+            if(adjust.getPosition() > 0.01) {
+                adjust.setPosition(adjust.getPosition() - 0.01);
+            }
         }
 
         else {
-            adjust.setPower(0);
+            //adjust.setPower(0);
         }
+
         if (gamepad1.guide) {
+
             if (reversed) {
                 reversed = false;
-                adjust.setDirection(DcMotor.Direction.FORWARD);
+                adjust.setDirection(Servo.Direction.FORWARD);
                 tape.setDirection(DcMotor.Direction.FORWARD);
             }
+
             else {
                 reversed = true;
-                adjust.setDirection(DcMotor.Direction.REVERSE);
+                adjust.setDirection(Servo.Direction.REVERSE);
                 tape.setDirection(DcMotor.Direction.REVERSE);
             }
         }
